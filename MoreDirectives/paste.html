@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="myPasteApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>More Directives</title>
+    <script src="../angular.js"></script>
+    <script>
+        var myApp = angular.module('myPasteApp', [])
+                .controller('MainCtrl', function($scope) {
+                    $scope.paste = false;
+                });
+    </script>
+</head>
+<body ng-controller="MainCtrl">
+
+    <input ng-paste="paste=true" placeholder="Paste Your Text Here"/>
+    <br />
+
+    Pasted Text: {{paste}}
+</body>
+</html>

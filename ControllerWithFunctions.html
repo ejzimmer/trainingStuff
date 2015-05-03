@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Stuff</title>
+    <script src="angular.js"></script>
+    <script>
+
+        var myApp = angular.module("todoApp", []);
+        myApp.controller("ToDoCtrl", function($scope){
+
+            $scope.todo = {};
+            $scope.todo.items = [{action: "Thing 1", done: false},
+                {action: "Thing 2", done: false}];
+            $scope.incompleteCount = function() {
+                var count = 0;
+                angular.forEach($scope.todo.items, function(item) {
+                   if (!item.done)
+                    count ++;
+                });
+                return count;
+            };
+            $scope.addItem = function(actionText) {
+                $scope.todo.items.push({action: actionText, done: false });
+            }
+        });
+
+        myApp.run(function($scope) {
+            $scope.listTitle = 'title';
+        })
+
+        myApp.filter("checkedItems", function() {
+            return function (items, showComplete) {
+                var resultArr = [];
+
+                angular.forEach(items, function(item) {
+                    if (!item.done || showComplete)
+                        resultArr.push(item);
+                });
+
+                return resultArr;
+            }
+        });
+
+    </script>
+</head>
+<body ng-controller="ToDoCtrl">
+
+    <div><input ng-model="actionText" type="text" /><button ng-click="addItem(actionText)">Add</button></div>
+    <table>
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Done</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in todo.items | checkedItems:showComplete">
+            <td>{{item.action}}</td>
+            <td><input type="checkbox" ng-model="item.done"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <div><input type="checkbox" ng-model="showComplete" />Show complete</div>
+<div x-ng-hide="!incompleteCount()">{{ incompleteCount()}} items remaining</div>
+</body>
+</html>

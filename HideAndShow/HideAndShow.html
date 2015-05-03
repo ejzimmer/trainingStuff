@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>Hello World</title>
+    <script src="../angular.js"></script>
+</head>
+<body>
+    Toggle: <input type="checkbox" ng-model="isChecked"/><br />
+
+    <div ng-hide="isChecked">
+        <p>It was 20 years ago today, Sgt Pepper taught the band to play...</p>
+    </div>
+
+    <div ng-show="isChecked">
+        <p>For the benefit of Mr Kite, there will be a show tonight...</p>
+    </div>
+</body>
+</html>

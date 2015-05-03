@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="lab2">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../angular.js"></script>
+    <script>
+
+        angular.module('lab2', []).controller('validateCtrl', function($scope) {
+
+            $scope.pasted = false;
+            $scope.email = '';
+            $scope.confirmEmail = '';
+
+            $scope.validateEmail = function(){
+
+                $scope.pasted = false;
+                if (($scope.email !== '') && ($scope.email === $scope.confirmEmail))
+                    $scope.message = 'Done!';
+                else
+                    $scope.message = "Email addresses don't match";
+            }
+        });
+    </script>
+</head>
+<body ng-controller="validateCtrl">
+
+    Email: <input type="email" ng-model="email" />
+    Confirm email: <input type="email" ng-model="confirmEmail" ng-paste="pasted=true"/>
+    <button ng-click="validateEmail()">Sign Up</button>
+    <div ng-show="pasted">Oi! Don't paste in the confirm email!</div>
+    <div>{{ message }}</div>
+</body>
+</html>
